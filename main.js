@@ -26,4 +26,26 @@ document.getElementById('checkWeatherBtn').addEventListener('click', () => {
             console.error("Error fetching weather:", error);
             alert("Unable to fetch weather. Please try again later.");
         });
+})
+document.addEventListener("DOMContentLoaded", () => {
+    const catButton = document.getElementById("catButton");
+    const catImage = document.getElementById("catImage");
+
+    catButton.addEventListener("click", async () => {
+        try {
+            const response = await fetch("https://api.thecatapi.com/v1/images/search");
+            if (!response.ok) {
+                throw new Error("Failed to fetch cat image");
+            }
+
+            const data = await response.json();
+            const imageUrl = data[0].url;
+
+            catImage.src = imageUrl;
+            catImage.alt = "A cute cat picture";
+        } catch (error) {
+            console.error("Error fetching cat image:", error);
+            alert("Sorry, couldn't fetch a cat picture. Please try again!");
+        }
+    });
 });
